@@ -1,0 +1,17 @@
+.component-list {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.component-list li {
+  list-style: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.component-title {
+  text-align: center;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 20px;
+}

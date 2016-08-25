@@ -1,0 +1,20 @@
+.black-card {
+  width: 135px;
+  height: 210px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #000000;
+  box-shadow: 0 1px 2px 0px #444444;
+
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.black-card.large {
+  width: 200px;
+  height: 320px;
+  padding: 30px;
+  font-size: 20px;
+}
