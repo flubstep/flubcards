@@ -15,7 +15,7 @@ class CircleButton extends React.Component {
         >
         {
           this.props.icon ? (
-            <img src={this.props.icon} />
+            <img role="presentation" src={this.props.icon} />
           ) : null
         }
       </section>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router';
 
 import UserName from '../components/UserName';
 import BlackCard from '../components/BlackCard';
 import WhiteCard from '../components/WhiteCard';
 import CircleButton from '../components/CircleButton';
+import Carousel from '../components/Carousel';
 
 import './DemoScreen.css';
 import cardSvg from '../static/ic_crop_portrait_black_24px.svg';
@@ -19,6 +19,13 @@ class DemoScreen extends React.Component {
         <ul className={"flex-centered component-list"}>
           <li><section className={"component-title"}>UserName</section>
             <UserName>Albert</UserName>
+          </li>
+          <li><section className={"component-title"}>Carousel</section>
+            <Carousel>
+              <WhiteCard>{whiteCardText}</WhiteCard>
+              <WhiteCard>{whiteCardText}</WhiteCard>
+              <WhiteCard>{whiteCardText}</WhiteCard>
+            </Carousel>
           </li>
           <li><section className={"component-title"}>BlackCard</section>
             <BlackCard>{blackCardText}</BlackCard>

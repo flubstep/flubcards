@@ -1,6 +1,7 @@
 import React from 'react';
-import CircleButton from './CircleButton';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import CircleButton from './CircleButton';
 import checkSvg from '../static/ic_done_black_24px.svg';
 
 import './WhiteCard.css';
@@ -27,13 +28,19 @@ class WhiteCard extends React.Component {
     return (
       <section onClick={this.toggleSelected} className={cardClasses}>
         {this.props.children}
-        {
-          this.state.selected ? (
-            <section className={"bottom flex-centered"}>
-              <CircleButton icon={checkSvg} color={"#BDD07F"} />
-            </section>
-          ) : null
-        }
+        <section className={"bottom flex-centered"}>
+          <ReactCSSTransitionGroup
+            transitionName="circle-button"
+            transitionEnterTimeout={100}
+            transitionLeaveTimeout={100}
+            >
+            {
+              this.state.selected ? (        
+                <CircleButton icon={checkSvg} color={"#BDD07F"} />
+              ) : null
+            }
+          </ReactCSSTransitionGroup>
+        </section>
       </section>
     );
   }

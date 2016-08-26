@@ -8,7 +8,7 @@ class UserName extends React.Component {
   render() {
     return (
       <section className={"username"}>
-        <img src={personSvg} />
+        <img role="presentation" src={personSvg} />
         {this.props.children}
       </section>
     );

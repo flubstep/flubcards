@@ -1,12 +1,11 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router';
 
 import UserName from '../components/UserName';
 import BlackCard from '../components/BlackCard';
 
 import './RoomScreen.css';
 
-class RoomChooseScreen extends React.Component {
+class RoomScreen extends React.Component {
 
   render() {
     let blackCardText = "Donald Trump’s first act as president was to outlaw _________.";
@@ -19,4 +18,4 @@ class RoomChooseScreen extends React.Component {
   }
 }
 
-export default RoomChooseScreen;
+export default RoomScreen;
