@@ -23,9 +23,8 @@ class Carousel extends React.Component {
     this.handleTouchMove = (e) => (this._handleTouchMove(e));
     this.handleCarousel = (e) => (this._handleCarousel(e));
 
-    this._startingTimestamp = null;
-    this._startingTouch = null;
-    this.breakpoints = [0];
+    this._touches = [];
+    this._breakpoints = [0];
 
     this.state = {
       restingIndex: 0,
@@ -42,62 +41,78 @@ class Carousel extends React.Component {
     let children = carousel.children || [];
     let currentBreakpoint = -(carouselRect.width / 2);
 
-    this.breakpoints = [];
+    this._breakpoints = [];
     for (var ii = 0; ii < children.length; ii++) {
       let child = children[ii];
       let rect = child.getBoundingClientRect();
-      this.breakpoints.push(currentBreakpoint + rect.width/2);
+      this._breakpoints.push(currentBreakpoint + rect.width/2);
       currentBreakpoint += rect.width;
     }
     this.setState({
-      restingIndex: Math.floor(this.breakpoints.length/2)
+      restingIndex: Math.floor(this._breakpoints.length/2)
     });
   }
 
-  closestBreakpoint(dx) {
+  closestBreakpoint(dx, correction = 0) {
     let closest = 0;
-    this.breakpoints.forEach((b, index) => {
+    this._breakpoints.forEach((b, index) => {
       let distance = Math.abs(dx - b);
-      if (distance < Math.abs(dx - this.breakpoints[closest])) {
+      if (distance < Math.abs(dx - this._breakpoints[closest])) {
         closest = index;
       }
     });
+    if (closest === this.state.restingIndex && correction) {
+      closest += correction;
+      closest = Math.min(this._breakpoints.length - 1, closest);
+      closest = Math.max(0, closest);
+    }
     return closest;
   }
 
   _handleTouchStart(e) {
-    this._startingTimestamp = new Date();
-    this._startingTouch = e.nativeEvent.touches[0];
+    this._touches.push(e.nativeEvent.touches[0]);
   }
 
   _handleTouchMove(e) {
-    let start = this._startingTouch;
-    let end = e.nativeEvent.touches[0];
-    let diff = {
-      dx: end.screenX - start.screenX,
-      dy: end.screenY - start.screenY
-    }
     e.preventDefault();
+    let start = this._touches[0];
+    let current = e.nativeEvent.touches[0];
+    let diff = {
+      dx: current.screenX - start.screenX,
+      dy: current.screenY - start.screenY
+    }
+    this._touches.push(current);
     this.setState({
       scrollX: diff.dx
     });
   }
 
   _handleTouchEnd(e) {
-    this._startingTimestamp = null;
-    this._startingTouch = null;
-    let dx = this.state.scrollX + this.breakpoints[this.state.restingIndex];
+    let n = this._touches.length;
+    let correction = 0;
+    if (n > 2) {
+      let e1 = this._touches[n-1];
+      let e0 = this._touches[n-2];
+      let velocity = (e1.screenX - e0.screenX);
+      if (velocity > 12) {
+        correction = 1;
+      } else if (velocity < -12) {
+        correction = -1;
+      }
+    }
+    let dx = this.state.scrollX + this._breakpoints[this.state.restingIndex];
+    this._touches = [];
     this.setState({
-      restingIndex: this.closestBreakpoint(dx),
+      restingIndex: this.closestBreakpoint(dx, correction),
       scrollX: 0
     });
   }
 
   render() {
-    let translateX = this.state.scrollX + this.breakpoints[this.state.restingIndex];
+    let translateX = this.state.scrollX + this._breakpoints[this.state.restingIndex];
     let transformStyle = {
       transform: 'translateX(' + translateX + 'px)',
-      transition: this._startingTouch ? undefined : 'transform 200ms ease-in-out'
+      transition: this._touches.length ? undefined : 'transform 200ms ease-in-out'
     }
     return (
       <section

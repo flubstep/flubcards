@@ -22,9 +22,9 @@ class DemoScreen extends React.Component {
           </li>
           <li><section className={"component-title"}>Carousel</section>
             <Carousel>
-              <WhiteCard>{whiteCardText}</WhiteCard>
-              <WhiteCard>{whiteCardText}</WhiteCard>
-              <WhiteCard>{whiteCardText}</WhiteCard>
+              <WhiteCard>Card number one (1)</WhiteCard>
+              <WhiteCard>Card number two (2)</WhiteCard>
+              <WhiteCard>Card number three (3)</WhiteCard>
             </Carousel>
           </li>
           <li><section className={"component-title"}>BlackCard</section>
