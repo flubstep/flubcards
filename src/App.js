@@ -11,9 +11,9 @@ class App extends React.Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path="/" component={RoomChooseScreen} />
-        <Route path="/demo" component={DemoScreen} />
-        <Route path="/:room" component={RoomScreen} />
+        <Route path="/cards" component={RoomChooseScreen} />
+        <Route path="/cards/demo" component={DemoScreen} />
+        <Route path="/cards/:room" component={RoomScreen} />
       </Router>
     );
   }
