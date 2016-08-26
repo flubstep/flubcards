@@ -45,7 +45,7 @@ class Carousel extends React.Component {
     for (var ii = 0; ii < children.length; ii++) {
       let child = children[ii];
       let rect = child.getBoundingClientRect();
-      this._breakpoints.push(currentBreakpoint + rect.width/2);
+      this._breakpoints.push(-(currentBreakpoint + rect.width/2));
       currentBreakpoint += rect.width;
     }
     this.setState({
@@ -95,9 +95,9 @@ class Carousel extends React.Component {
       let e0 = this._touches[n-2];
       let velocity = (e1.screenX - e0.screenX);
       if (velocity > 12) {
-        correction = 1;
-      } else if (velocity < -12) {
         correction = -1;
+      } else if (velocity < -12) {
+        correction = 1;
       }
     }
     let dx = this.state.scrollX + this._breakpoints[this.state.restingIndex];
@@ -128,7 +128,11 @@ class Carousel extends React.Component {
           >
           {
             this.props.children.map((c, index) => (
-              <CarouselItem key={index}>{c}</CarouselItem>
+              <CarouselItem key={[index, this.state.restingIndex]}>
+                {
+                  React.cloneElement(c, { centered: index === this.state.restingIndex })
+                }
+              </CarouselItem>
             ))
           }
         </section>
