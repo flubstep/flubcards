@@ -128,7 +128,7 @@ class Carousel extends React.Component {
           >
           {
             this.props.children.map((c, index) => (
-              <CarouselItem key={[index, this.state.restingIndex]}>
+              <CarouselItem key={index}>
                 {
                   React.cloneElement(c, { centered: index === this.state.restingIndex })
                 }

@@ -20,8 +20,8 @@ class WhiteCard extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.centered && !nextProps.centered) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.centered && !this.props.centered) {
       this.setState({
         selected: false
       });
@@ -29,9 +29,8 @@ class WhiteCard extends React.Component {
   }
 
   render() {
-    let selected = this.state.selected && this.props.centered;
     let cardClasses = 'white-card';
-    if (selected) {
+    if (this.state.selected) {
       cardClasses += ' selected';
     }
     return (
@@ -44,7 +43,7 @@ class WhiteCard extends React.Component {
             transitionLeaveTimeout={100}
             >
             {
-              selected ? (
+              this.state.selected ? (
                 <CircleButton icon={checkSvg} color={"#BDD07F"} />
               ) : null
             }
