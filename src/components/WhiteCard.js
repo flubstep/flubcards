@@ -14,9 +14,11 @@ class WhiteCard extends React.Component {
       selected: false
     }
     this.toggleSelected = () => {
-      this.setState({
-        selected: !this.state.selected
-      });
+      if (this.props.centered) {
+        this.setState({
+          selected: !this.state.selected
+        });
+      }
     }
   }
 
