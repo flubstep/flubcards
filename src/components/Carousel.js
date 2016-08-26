@@ -3,6 +3,13 @@ import React from 'react';
 import './Carousel.css';
 
 
+function touchCopy(t) {
+  return {
+    screenX: t.screenX,
+    screenY: t.screenY
+  }
+}
+
 class CarouselItem extends React.Component {
 
   render() {
@@ -70,7 +77,7 @@ class Carousel extends React.Component {
   }
 
   _handleTouchStart(e) {
-    this._touches.push(e.nativeEvent.touches[0]);
+    this._touches = [touchCopy(e.nativeEvent.touches[0])];
   }
 
   _handleTouchMove(e) {
@@ -81,7 +88,7 @@ class Carousel extends React.Component {
       dx: current.screenX - start.screenX,
       dy: current.screenY - start.screenY
     }
-    this._touches.push(current);
+    this._touches.push(touchCopy(current));
     this.setState({
       scrollX: diff.dx
     });
