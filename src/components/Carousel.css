@@ -1,11 +1,6 @@
 .carousel {
   display: flex;
   flex-direction: row;
-  /*
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  */
 }
 
 .carousel-container {
