@@ -11,6 +11,7 @@ class WhiteCard extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      bouncing: false,
       selected: false,
       dy: 0
     }
@@ -24,7 +25,8 @@ class WhiteCard extends React.Component {
     this._startingTouch = null;
     this.onTouchStart = (e) => this._onTouchStart(e);
     this.onTouchMove = (e) => this._onTouchMove(e);
-    this.onTouchEnd = (e) => this._onTouchEnd(e)
+    this.onTouchEnd = (e) => this._onTouchEnd(e);
+    this.onClick = (e) => this._onClick(e);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -33,6 +35,11 @@ class WhiteCard extends React.Component {
         selected: false
       });
     }
+  }
+
+  _onClick(e) {
+    this.setState({ bouncing: true });
+    setTimeout(() => this.setState({ bouncing: false }), 100);
   }
 
   _onTouchStart(e) {
@@ -50,6 +57,7 @@ class WhiteCard extends React.Component {
 
   _onTouchEnd(e) {
     this._startingTouch = null;
+    this.props.onRelease({ dy: this.state.dy });
     this.setState({ dy: 0 });
   }
 
@@ -58,6 +66,9 @@ class WhiteCard extends React.Component {
     if (this.state.selected) {
       cardClasses += ' selected';
     }
+    if (this.state.bouncing) {
+      cardClasses += ' bouncing';
+    }
 
     let touchHandlers = this.props.centered ? {
       onTouchStart: this.onTouchStart,
@@ -65,18 +76,17 @@ class WhiteCard extends React.Component {
       onTouchEnd: this.onTouchEnd
     } : {};
 
-    // onClick={this.toggleSelected}
-
     let dy = Math.abs(this.state.dy) < this.props.deadzone ? 0 : this.state.dy;
     dy = dy > 0 ? (dy / this.props.weight) : dy;
     let containerStyle = {
       width: this.props.width,
-      transform: 'translateY(' + dy + 'px)',
+      transform: this._startingTouch ? 'translateY(' + dy + 'px)' : null,
       transition: !this._startingTouch ? '100ms linear' : null
     }
 
     return (
       <section
+        onClick={this.onClick}
         style={containerStyle}
         className={cardClasses}
         {...touchHandlers}
@@ -105,7 +115,8 @@ WhiteCard.defaultProps = {
   centered: true,
   width: null,
   deadzone: 30,
-  weight: 4
+  weight: 4,
+  onRelease: () => {}
 }
 
 export default WhiteCard;
