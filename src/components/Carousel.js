@@ -131,26 +131,28 @@ class Carousel extends React.Component {
       transition: this._touches.length ? undefined : 'transform 200ms ease-in-out'
     }
     return (
-      <section
-        onTouchStart={this.handleTouchStart}
-        onTouchMove={this.handleTouchMove}
-        onTouchCancel={this.handleTouchCancel}
-        onTouchEnd={this.handleTouchEnd}
-        >
+      <section className="carousel-container">
         <section
-          className="carousel"
-          style={transformStyle}
-          ref={this.handleCarousel}
+          onTouchStart={this.handleTouchStart}
+          onTouchMove={this.handleTouchMove}
+          onTouchCancel={this.handleTouchCancel}
+          onTouchEnd={this.handleTouchEnd}
           >
-          {
-            this.props.children.map((c, index) => (
-              <CarouselItem key={index}>
-                {
-                  React.cloneElement(c, { centered: index === this.state.restingIndex })
-                }
-              </CarouselItem>
-            ))
-          }
+          <section
+            className="carousel"
+            style={transformStyle}
+            ref={this.handleCarousel}
+            >
+            {
+              this.props.children.map((c, index) => (
+                <CarouselItem key={index}>
+                  {
+                    React.cloneElement(c, { centered: index === this.state.restingIndex })
+                  }
+                </CarouselItem>
+              ))
+            }
+          </section>
         </section>
       </section>
     );

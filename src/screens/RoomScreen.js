@@ -2,17 +2,36 @@ import React from 'react';
 
 import UserName from '../components/UserName';
 import BlackCard from '../components/BlackCard';
+import WhiteCard from '../components/WhiteCard';
+import Carousel from '../components/Carousel';
+
+const blackCardText = "Donald Trump’s first act as president was to outlaw _________.";
+const whiteCardTexts = [
+  "Being on fire.",
+  "Racism.",
+  "Old people smell.",
+  "A micropenis.",
+  "Women in yogurt commercials.",
+  "Classist undertones.",
+  "Not giving a shit about the Third World."
+];
 
 import './RoomScreen.css';
 
 class RoomScreen extends React.Component {
 
   render() {
-    let blackCardText = "Donald Trump’s first act as president was to outlaw _________.";
     return (
-      <section>
-        <UserName>Albert</UserName>
-        <BlackCard>{blackCardText}</BlackCard>
+      <section className="screen">
+        <section className="room-screen">
+          <UserName>Albert</UserName>
+          <BlackCard>{blackCardText}</BlackCard>
+          <Carousel>
+            {
+              whiteCardTexts.map((text) => (<WhiteCard key={text}>{text}</WhiteCard>))
+            }
+          </Carousel>
+        </section>
       </section>
     );
   }
