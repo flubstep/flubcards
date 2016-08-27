@@ -90,7 +90,7 @@ class Carousel extends React.Component {
     }
     this._touches.push(touchCopy(current));
     this.setState({
-      scrollX: diff.dx
+      scrollX: Math.abs(diff.dy) > Math.abs(diff.dx) ? 0 : diff.dx
     });
   }
 
@@ -116,7 +116,8 @@ class Carousel extends React.Component {
   }
 
   render() {
-    let translateX = this.state.scrollX + this._breakpoints[this.state.restingIndex];
+    let scrollX = Math.abs(this.state.scrollX) < this.props.deadzone ? 0 : this.state.scrollX;
+    let translateX = scrollX + this._breakpoints[this.state.restingIndex];
     let ceilX = this._breakpoints[0];
     let floorX = this._breakpoints[this._breakpoints.length - 1];
 
@@ -160,7 +161,7 @@ class Carousel extends React.Component {
 }
 
 Carousel.defaultProps = {
-
+  deadzone: 10
 }
 
 export default Carousel;

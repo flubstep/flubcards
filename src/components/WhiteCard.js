@@ -11,7 +11,8 @@ class WhiteCard extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      selected: false
+      selected: false,
+      dy: 0
     }
     this.toggleSelected = () => {
       if (this.props.centered) {
@@ -20,6 +21,10 @@ class WhiteCard extends React.Component {
         });
       }
     }
+    this._startingTouch = null;
+    this.onTouchStart = (e) => this._onTouchStart(e);
+    this.onTouchMove = (e) => this._onTouchMove(e);
+    this.onTouchEnd = (e) => this._onTouchEnd(e)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,13 +35,50 @@ class WhiteCard extends React.Component {
     }
   }
 
+  _onTouchStart(e) {
+    this._startingTouch = {
+      screenX: e.nativeEvent.touches[0].screenX,
+      screenY: e.nativeEvent.touches[0].screenY
+    }
+  }
+
+  _onTouchMove(e) {
+    let currentTouch = e.nativeEvent.touches[0];
+    let dy = currentTouch.screenY - this._startingTouch.screenY;
+    this.setState({ dy });
+  }
+
+  _onTouchEnd(e) {
+    this._startingTouch = null;
+    this.setState({ dy: 0 });
+  }
+
   render() {
     let cardClasses = 'white-card';
     if (this.state.selected) {
       cardClasses += ' selected';
     }
+
+    let touchHandlers = this.props.centered ? {
+      onTouchStart: this.onTouchStart,
+      onTouchMove: this.onTouchMove,
+      onTouchEnd: this.onTouchEnd
+    } : {};
+
+    // onClick={this.toggleSelected}
+
+    let containerStyle = {
+      width: this.props.width,
+      transform: 'translateY(' + this.state.dy + 'px)',
+      transition: !this._startingTouch ? '100ms linear' : null
+    }
+
     return (
-      <section onClick={this.toggleSelected} style={{width: this.props.width}} className={cardClasses}>
+      <section
+        style={containerStyle}
+        className={cardClasses}
+        {...touchHandlers}
+        >
         {this.props.children}
         <section className={"bottom flex-centered"}>
           <ReactCSSTransitionGroup
