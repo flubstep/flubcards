@@ -161,7 +161,7 @@ class Carousel extends React.Component {
 }
 
 Carousel.defaultProps = {
-  deadzone: 10
+  deadzone: 20
 }
 
 export default Carousel;

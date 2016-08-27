@@ -67,9 +67,11 @@ class WhiteCard extends React.Component {
 
     // onClick={this.toggleSelected}
 
+    let dy = Math.abs(this.state.dy) < this.props.deadzone ? 0 : this.state.dy;
+    dy = dy > 0 ? (dy / this.props.weight) : dy;
     let containerStyle = {
       width: this.props.width,
-      transform: 'translateY(' + this.state.dy + 'px)',
+      transform: 'translateY(' + dy + 'px)',
       transition: !this._startingTouch ? '100ms linear' : null
     }
 
@@ -101,7 +103,9 @@ class WhiteCard extends React.Component {
 WhiteCard.defaultProps = {
   selected: false,
   centered: true,
-  width: null
+  width: null,
+  deadzone: 30,
+  weight: 4
 }
 
 export default WhiteCard;
