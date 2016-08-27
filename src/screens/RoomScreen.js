@@ -20,6 +20,19 @@ import './RoomScreen.css';
 
 class RoomScreen extends React.Component {
 
+  constructor(props, context) {
+    super(props, context);
+    this.checkCard = (e) => this._checkCard(e);
+  }
+
+  _checkCard(e) {
+    if (e.dy < -150) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     return (
       <section className="screen">
@@ -28,7 +41,11 @@ class RoomScreen extends React.Component {
           <BlackCard>{blackCardText}</BlackCard>
           <Carousel>
             {
-              whiteCardTexts.map((text) => (<WhiteCard key={text}>{text}</WhiteCard>))
+              whiteCardTexts.map((text) => (
+                <WhiteCard onRelease={this.checkCard} key={text}>
+                  {text}
+                </WhiteCard>
+              ))
             }
           </Carousel>
         </section>

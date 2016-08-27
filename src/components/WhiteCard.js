@@ -56,9 +56,11 @@ class WhiteCard extends React.Component {
   }
 
   _onTouchEnd(e) {
-    this._startingTouch = null;
-    this.props.onRelease({ dy: this.state.dy });
-    this.setState({ dy: 0 });
+    let shouldReset = this.props.onRelease({ dy: this.state.dy });
+    if (shouldReset) {
+      this._startingTouch = null;
+      this.setState({ dy: 0 });
+    }
   }
 
   render() {
@@ -116,7 +118,7 @@ WhiteCard.defaultProps = {
   width: null,
   deadzone: 30,
   weight: 4,
-  onRelease: () => {}
+  onRelease: () => true
 }
 
 export default WhiteCard;
