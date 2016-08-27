@@ -117,6 +117,15 @@ class Carousel extends React.Component {
 
   render() {
     let translateX = this.state.scrollX + this._breakpoints[this.state.restingIndex];
+    let ceilX = this._breakpoints[0];
+    let floorX = this._breakpoints[this._breakpoints.length - 1];
+
+    if (translateX > ceilX) {
+      translateX -= (translateX - ceilX) / 2;
+    } else if (translateX < floorX) {
+      translateX -= (translateX - floorX) / 2;
+    }
+
     let transformStyle = {
       transform: 'translateX(' + translateX + 'px)',
       transition: this._touches.length ? undefined : 'transform 200ms ease-in-out'
