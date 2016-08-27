@@ -36,7 +36,7 @@ class WhiteCard extends React.Component {
       cardClasses += ' selected';
     }
     return (
-      <section onClick={this.toggleSelected} className={cardClasses}>
+      <section onClick={this.toggleSelected} style={{width: this.props.width}} className={cardClasses}>
         {this.props.children}
         <section className={"bottom flex-centered"}>
           <ReactCSSTransitionGroup
@@ -58,7 +58,8 @@ class WhiteCard extends React.Component {
 
 WhiteCard.defaultProps = {
   selected: false,
-  centered: true
+  centered: true,
+  width: null
 }
 
 export default WhiteCard;

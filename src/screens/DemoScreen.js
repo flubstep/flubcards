@@ -20,17 +20,17 @@ class DemoScreen extends React.Component {
           <li><section className={"component-title"}>UserName</section>
             <UserName>Albert</UserName>
           </li>
-          <li><section className={"component-title"}>Carousel</section>
-            <Carousel>
-              <WhiteCard>Card number one (1)</WhiteCard>
-              <WhiteCard>Card number two (2)</WhiteCard>
-              <WhiteCard>Card number three (3)</WhiteCard>
-              <WhiteCard>Card number four (4)</WhiteCard>
-              <WhiteCard>Card number five (5)</WhiteCard>
-            </Carousel>
-          </li>
           <li><section className={"component-title"}>BlackCard</section>
             <BlackCard>{blackCardText}</BlackCard>
+          </li>
+          <li><section className={"component-title"}>Carousel</section>
+            <Carousel>
+              <WhiteCard width={240}>Card number one (1)</WhiteCard>
+              <WhiteCard width={300}>Card number two (2)</WhiteCard>
+              <WhiteCard>Card number three (3)</WhiteCard>
+              <WhiteCard width={100}>Card number four (4)</WhiteCard>
+              <WhiteCard width={220}>Card number five (5)</WhiteCard>
+            </Carousel>
           </li>
           <li><section className={"component-title"}>WhiteCard</section>
             <WhiteCard>{whiteCardText}</WhiteCard>
