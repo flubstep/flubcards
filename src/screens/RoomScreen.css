@@ -1,14 +1,4 @@
-.room-screen {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.room-carousel {
+.card-carousel {
   position: absolute;
   bottom: 10px;
 }
