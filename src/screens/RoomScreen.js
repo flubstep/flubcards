@@ -5,7 +5,7 @@ import BlackCard from '../components/BlackCard';
 import WhiteCard from '../components/WhiteCard';
 import Carousel from '../components/Carousel';
 
-const blackCardText = "Donald Trump’s first act as president was to outlaw _________.";
+const blackCardText = "Donald Trump’s first act as president was to outlaw $ANSWER";
 const whiteCardTexts = [
   "Being on fire.",
   "Racism.",
@@ -51,9 +51,9 @@ class RoomScreen extends React.Component {
           <BlackCard
             onClick={this.unselectCard}
             checked={this.state.selectedCard}
-            >
-            {blackCardText}
-          </BlackCard>
+            text={blackCardText}
+            answer={this.state.selectedCard}
+          />
           <Carousel>
             {
               whiteCardTexts.map((text) => (

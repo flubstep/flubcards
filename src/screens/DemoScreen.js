@@ -12,7 +12,7 @@ import cardSvg from '../static/ic_crop_portrait_black_24px.svg';
 class DemoScreen extends React.Component {
 
   render() {
-    let blackCardText = "Donald Trump’s first act as president was to outlaw _________.";
+    let blackCardText = "Donald Trump’s first act as president was to outlaw $ANSWER.";
     let whiteCardText = "Trying to wake up from this nightmare.";
     return (
       <section>
@@ -21,7 +21,7 @@ class DemoScreen extends React.Component {
             <UserName>Albert</UserName>
           </li>
           <li><section className={"component-title"}>BlackCard</section>
-            <BlackCard>{blackCardText}</BlackCard>
+            <BlackCard text={blackCardText} />
           </li>
           <li><section className={"component-title"}>Carousel</section>
             <Carousel>
