@@ -30,6 +30,7 @@ class Carousel extends React.Component {
     this.handleTouchMove = (e) => (this._handleTouchMove(e));
     this.handleCarousel = (e) => (this._handleCarousel(e));
 
+    this._carousel = null;
     this._touches = [];
     this._breakpoints = [0];
 
@@ -39,7 +40,15 @@ class Carousel extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.children.length !== this._breakpoints.length) {
+      console.log('recalcing');
+      this.calculateChildCoordinates(this._carousel);
+    }
+  }
+
   _handleCarousel(c) {
+    this._carousel = c;
     this.calculateChildCoordinates(c);
   }
 
@@ -148,7 +157,7 @@ class Carousel extends React.Component {
               this.props.children.map((c, index) => (
                 <CarouselItem key={index}>
                   {
-                    React.cloneElement(c, { centered: index === this.state.restingIndex })
+                    c ? React.cloneElement(c, { centered: index === this.state.restingIndex }) : c
                   }
                 </CarouselItem>
               ))

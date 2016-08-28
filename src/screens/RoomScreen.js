@@ -22,11 +22,16 @@ class RoomScreen extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.checkCard = (e) => this._checkCard(e);
+    this.state = {
+      selectedCard: null
+    }
   }
 
-  _checkCard(e) {
+  checkCard(e, text) {
     if (e.dy < -150) {
+      this.setState({
+        selectedCard: text
+      });
       return false;
     } else {
       return true;
@@ -42,7 +47,11 @@ class RoomScreen extends React.Component {
           <Carousel>
             {
               whiteCardTexts.map((text) => (
-                <WhiteCard onRelease={this.checkCard} key={text}>
+                <WhiteCard
+                  key={text}
+                  active={text !== this.state.selectedCard}
+                  onRelease={(e) => this.checkCard(e, text)}
+                  >
                   {text}
                 </WhiteCard>
               ))

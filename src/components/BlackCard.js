@@ -1,14 +1,17 @@
 import React from 'react';
 
 import './BlackCard.css';
+import ShrinkGrowTransitionGroup from './ShrinkGrowTransitionGroup';
 
 class BlackCard extends React.Component {
 
   render() {
     return (
-      <section className={"black-card"}>
-        {this.props.children}
-      </section>
+      <ShrinkGrowTransitionGroup>
+        <section className={"black-card"}>
+          {this.props.children}
+        </section>
+      </ShrinkGrowTransitionGroup>
     );
   }
 }

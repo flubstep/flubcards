@@ -1,9 +1,6 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import CircleButton from './CircleButton';
-import checkSvg from '../static/ic_done_black_24px.svg';
-
+import ShrinkGrowTransitionGroup from './ShrinkGrowTransitionGroup';
 import './WhiteCard.css';
 
 class WhiteCard extends React.Component {
@@ -13,7 +10,8 @@ class WhiteCard extends React.Component {
     this.state = {
       bouncing: false,
       selected: false,
-      dy: 0
+      dy: 0,
+      show: true
     }
     this.toggleSelected = () => {
       if (this.props.centered) {
@@ -33,6 +31,11 @@ class WhiteCard extends React.Component {
     if (prevProps.centered && !this.props.centered) {
       this.setState({
         selected: false
+      });
+    }
+    if (!prevProps.active && this.props.active) {
+      this.setState({
+        dy: 0
       });
     }
   }
@@ -71,8 +74,11 @@ class WhiteCard extends React.Component {
     if (this.state.bouncing) {
       cardClasses += ' bouncing';
     }
+    if (!this.props.active) {
+      cardClasses += ' disabled';
+    }
 
-    let touchHandlers = this.props.centered ? {
+    let touchHandlers = (this.props.centered && this.props.draggable) ? {
       onTouchStart: this.onTouchStart,
       onTouchMove: this.onTouchMove,
       onTouchEnd: this.onTouchEnd
@@ -87,38 +93,38 @@ class WhiteCard extends React.Component {
     }
 
     return (
-      <section
-        onClick={this.onClick}
-        style={containerStyle}
-        className={cardClasses}
-        {...touchHandlers}
-        >
-        {this.props.children}
-        <section className={"bottom flex-centered"}>
-          <ReactCSSTransitionGroup
-            transitionName="circle-button"
-            transitionEnterTimeout={100}
-            transitionLeaveTimeout={100}
-            >
-            {
-              this.state.selected ? (
-                <CircleButton icon={checkSvg} color={"#BDD07F"} />
-              ) : null
-            }
-          </ReactCSSTransitionGroup>
-        </section>
+      <section className={'card-container'}>
+        <ShrinkGrowTransitionGroup>
+          {
+            this.props.active ? (
+              <section>
+                <section
+                  onClick={this.onClick}
+                  style={containerStyle}
+                  className={cardClasses}
+                  {...touchHandlers}
+                  >
+                  {this.props.children}
+                </section>
+              </section>
+            ) : null
+          }
+        </ShrinkGrowTransitionGroup>
       </section>
     );
   }
 }
 
 WhiteCard.defaultProps = {
+  active: true,
   selected: false,
   centered: true,
+  draggable: true,
   width: null,
   deadzone: 30,
   weight: 4,
-  onRelease: () => true
+  onRelease: () => true,
+  onMove: () => {}
 }
 
 export default WhiteCard;

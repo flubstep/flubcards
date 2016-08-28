@@ -3,7 +3,6 @@
   width: 135px;
   height: 210px;
   padding: 20px;
-  margin: 0 5px;
   border-radius: 8px;
 
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -30,4 +29,10 @@
 
 .white-card.bouncing {
   transform: translateY(-20px);
+}
+
+.card-container {
+  height: 250px;
+  width: 175px;
+  margin: 0 5px;
 }
