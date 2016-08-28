@@ -36,9 +36,10 @@ class ChooseCardScreen extends React.Component {
   }
 
   _onCardDrag(e) {
-    this.setState({
-      hovering: e.dy < -150
-    });
+    let hovering = (e.dy < -150);
+    if (hovering != this.state.hovering) {
+      this.setState({ hovering });
+    }
   }
 
   checkCard(e, text) {
