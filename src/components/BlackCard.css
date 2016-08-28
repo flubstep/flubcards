@@ -33,3 +33,7 @@
   height: 210px;
   overflow: visible;
 }
+
+.newline {
+  display: block;
+}

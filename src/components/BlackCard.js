@@ -8,11 +8,16 @@ const BLANK = '________'
 class BlackCard extends React.Component {
 
   render() {
-    let answer = this.props.answer ? trimEnd(this.props.answer, '.') : BLANK;
+    let answer = this.props.answer ? this.props.answer : BLANK;
     let answerClass = this.props.answer ? 'answer-text' : null;
     let split = this.props.text.split('$ANSWER');
     let beforeText = split[0];
     let afterText = split[1];
+    if (!afterText) {
+      answerClass += ' newline';
+    } else {
+      answer = trimEnd(answer, '.');
+    }
     return (
       <section className={"black-card-container"}>
         <section className={"black-card large"}>
