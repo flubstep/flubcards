@@ -3,7 +3,7 @@ import React from 'react';
 import ShrinkGrowTransitionGroup from './ShrinkGrowTransitionGroup';
 import CircleButton from './CircleButton';
 
-import svgCheck from '../static/ic_done_black_24px.svg';
+import undoSvg from '../static/ic_undo_black_24px.svg';
 import './BlackCard.css';
 
 class BlackCard extends React.Component {
@@ -16,7 +16,7 @@ class BlackCard extends React.Component {
           <ShrinkGrowTransitionGroup>
             {
               this.props.checked ? (
-                <CircleButton onClick={this.props.onClick} icon={svgCheck} />
+                <CircleButton onClick={this.props.onClick} icon={undoSvg} />
               ) : null
             }
           </ShrinkGrowTransitionGroup>
