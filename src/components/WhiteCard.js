@@ -1,6 +1,9 @@
 import React from 'react';
 
+import CircleButton from './CircleButton';
 import ShrinkGrowTransitionGroup from './ShrinkGrowTransitionGroup';
+import undoSvg from '../static/ic_undo_black_24px.svg';
+
 import './WhiteCard.css';
 
 class WhiteCard extends React.Component {
@@ -112,6 +115,13 @@ class WhiteCard extends React.Component {
               </section>
             ) : null
           }
+          {
+            !this.props.active ? (
+              <section className={"reset-button flex-centered"}>
+                <CircleButton color={"#AFC6B6"} onClick={this.props.onResetClick} icon={undoSvg} />
+              </section>
+            ) : null
+          }
         </ShrinkGrowTransitionGroup>
       </section>
     );
@@ -127,7 +137,8 @@ WhiteCard.defaultProps = {
   deadzone: 30,
   weight: 4,
   onRelease: () => true,
-  onMove: () => {}
+  onMove: () => {},
+  onResetClick: () => {}
 }
 
 export default WhiteCard;

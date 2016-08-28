@@ -61,6 +61,7 @@ class RoomScreen extends React.Component {
                   key={text}
                   active={text !== this.state.selectedCard}
                   onRelease={(e) => this.checkCard(e, text)}
+                  onResetClick={this.unselectCard}
                   >
                   {text}
                 </WhiteCard>

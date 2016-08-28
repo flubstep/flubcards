@@ -13,6 +13,8 @@
   font-size: 16px;
   font-weight: 500;
   color: #000000;
+
+  z-index: 1;
 }
 
 .white-card .bottom {
@@ -34,7 +36,14 @@
 .card-container {
   height: 250px;
   width: 175px;
-  margin: 0 5px;
+  margin: 0 2px;
   border-radius: 8px;
   background-color: rgba(0,0,0,0.05);
+}
+
+.reset-button {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 175px;
 }

@@ -6,7 +6,6 @@ import './ShrinkGrowTransitionGroup.css';
 const ShrinkGrowTransitionGroup = (props) => (
   <ReactCSSTransitionGroup
     transitionName="shrink-grow"
-    transitionAppearTimeout={200}
     transitionEnterTimeout={200}
     transitionLeaveTimeout={200}
     >

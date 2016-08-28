@@ -1,4 +1,5 @@
 .black-card {
+  position: relative;
   width: 135px;
   height: 210px;
   padding: 20px;
@@ -13,7 +14,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .black-card.large {
@@ -25,4 +26,10 @@
 
 .answer-text {
   color: #BDD07F;
+  text-decoration: underline;
+}
+
+.black-card-container {
+  height: 210px;
+  overflow: visible;
 }
