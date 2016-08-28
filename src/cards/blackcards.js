@@ -147,7 +147,7 @@ module.exports = [
   "Why can't I sleep at night?",
   "What's that smell?",
   "What helps Obama unwind?",
-  "This is the way the world ends \ This is the way the world ends \ Not with a bang but with $ANSWER.",
+  "This is the way the world ends \\ This is the way the world ends \\ Not with a bang but with $ANSWER.",
   "Coming to Broadway this season, $ANSWER: The Musical.",
   "Anthropologists have recently discovered a primitive tribe that worships $ANSWER.",
   "But before I kill you, Mr. Bond, I must show you $ANSWER.",

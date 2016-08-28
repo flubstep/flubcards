@@ -143,7 +143,7 @@ module.exports = [
   "Preteens.",
   "Scalping.",
   "Stifling a giggle at the mention of Hutus and Tutsis.",
-  ""Tweeting."",
+  '"Tweeting."',
   "Darth Vader.",
   "A sad handjob.",
   "Exactly what you'd expect.",
