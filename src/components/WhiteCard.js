@@ -59,10 +59,11 @@ class WhiteCard extends React.Component {
     let currentTouch = e.nativeEvent.touches[0];
     let dy = currentTouch.screenY - this._startingTouch.screenY;
     this.setState({ dy });
+    this.props.onDragMove({ dy });
   }
 
   _onTouchEnd(e) {
-    let shouldReset = this.props.onRelease({ dy: this.state.dy });
+    let shouldReset = this.props.onDragRelease({ dy: this.state.dy });
     if (shouldReset) {
       this._startingTouch = null;
       this.setState({ dy: 0 });
@@ -136,8 +137,8 @@ WhiteCard.defaultProps = {
   width: null,
   deadzone: 30,
   weight: 4,
-  onRelease: () => true,
-  onMove: () => {},
+  onDragRelease: () => true,
+  onDragMove: () => {},
   onResetClick: () => {}
 }
 

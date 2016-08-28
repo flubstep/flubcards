@@ -5,7 +5,7 @@ class RoomChooseScreen extends React.Component {
   render() {
     return (
       <section>
-        TBA
+        Choose a Room.
       </section>
     );
   }

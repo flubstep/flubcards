@@ -19,13 +19,17 @@ class RoomScreen extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+
     }
   }
 
   render() {
     return (
       <section className="screen">
-        <ChooseCardScreen blackCard={blackCardText} hand={whiteCardTexts} />
+        <ChooseCardScreen
+          blackCard={blackCardText}
+          hand={whiteCardTexts}
+          />
       </section>
     );
   }
