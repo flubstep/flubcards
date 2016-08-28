@@ -91,13 +91,16 @@ class WhiteCard extends React.Component {
       transform: this._startingTouch ? 'translateY(' + dy + 'px)' : null,
       transition: !this._startingTouch ? '100ms linear' : null
     }
+    let transformStyle = {
+      transformOrigin: '50% ' + dy + 'px'
+    }
 
     return (
       <section className={'card-container'}>
         <ShrinkGrowTransitionGroup>
           {
             this.props.active ? (
-              <section>
+              <section style={transformStyle}>
                 <section
                   onClick={this.onClick}
                   style={containerStyle}
