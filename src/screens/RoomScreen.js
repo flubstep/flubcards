@@ -23,13 +23,26 @@ class RoomScreen extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      selectedCard: null
+      selectedCard: null,
+      leftOffset: 0
     }
     this.unselectCard = () => this._unselectCard();
+    this.setCarousel = (c) => this._setCarousel(c);
   }
 
   _unselectCard() {
     this.setState({ selectedCard: null });
+  }
+
+  _setCarousel(c) {
+    // HACK: Need to compensate for mobile Safari in order
+    // to get the carousel to still render centered when
+    // in absolute positioning.
+    let windowWidth = window.innerWidth;
+    let carouselWidth = c.getBoundingClientRect().width;
+    this.setState({
+      leftOffset: (carouselWidth - windowWidth) / 2
+    });
   }
 
   checkCard(e, text) {
@@ -44,6 +57,7 @@ class RoomScreen extends React.Component {
   }
 
   render() {
+    let leftOffset = { left: -this.state.leftOffset };
     return (
       <section className="screen">
         <section className="room-screen">
@@ -58,7 +72,11 @@ class RoomScreen extends React.Component {
               answer={this.state.selectedCard}
             />
           </section>
-          <section className="room-carousel">
+          <section
+            ref={this.setCarousel}
+            style={leftOffset}
+            className="room-carousel"
+            >
             <Carousel>
               {
                 whiteCardTexts.map((text) => (
