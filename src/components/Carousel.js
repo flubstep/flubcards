@@ -42,7 +42,6 @@ class Carousel extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.children.length !== this._breakpoints.length) {
-      console.log('recalcing');
       this.calculateChildCoordinates(this._carousel);
     }
   }
@@ -109,10 +108,14 @@ class Carousel extends React.Component {
     if (n > 2) {
       let e1 = this._touches[n-1];
       let e0 = this._touches[n-2];
-      let velocity = (e1.screenX - e0.screenX);
-      if (velocity > 12) {
+      let dy = Math.abs(e1.screenY - this._touches[0].screenY);
+      let velocityX = (e1.screenX - e0.screenX);
+      if (dy > 50) {
+        correction = 0;
+      }
+      else if (velocityX > 12) {
         correction = -1;
-      } else if (velocity < -12) {
+      } else if (velocityX < -12) {
         correction = 1;
       }
     }
