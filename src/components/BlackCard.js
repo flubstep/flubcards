@@ -20,7 +20,7 @@ class BlackCard extends React.Component {
     }
     return (
       <section className={"black-card-container"}>
-        <section className={"black-card large"}>
+        <section className={"black-card large" + (this.props.hover ? " hover" : "")}>
           <section>
            {beforeText}<span className={answerClass}>{answer}</span>{afterText}
           </section>
@@ -34,6 +34,7 @@ BlackCard.defaultProps = {
   text: "This black card is filling in for $ANSWER",
   answer: null,
   checked: false,
+  hover: false,
   onClick: () => {}
 }
 

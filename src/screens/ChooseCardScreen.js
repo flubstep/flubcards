@@ -17,6 +17,7 @@ class ChooseCardScreen extends React.Component {
     }
     this.unselectCard = () => this._unselectCard();
     this.setCarousel = (c) => this._setCarousel(c);
+    this.onCardDrag = (e) => this._onCardDrag(e);
   }
 
   _unselectCard() {
@@ -34,10 +35,17 @@ class ChooseCardScreen extends React.Component {
     });
   }
 
+  _onCardDrag(e) {
+    this.setState({
+      hovering: e.dy < -150
+    });
+  }
+
   checkCard(e, text) {
     if (e.dy < -150) {
       this.setState({
-        selectedCard: text
+        selectedCard: text,
+        hovering: false
       });
       return false;
     } else {
@@ -54,6 +62,7 @@ class ChooseCardScreen extends React.Component {
         </section>
         <section className="margin-10">
           <BlackCard
+            hover={this.state.hovering}
             onClick={this.unselectCard}
             checked={this.state.selectedCard}
             text={this.props.blackCard}
@@ -71,7 +80,8 @@ class ChooseCardScreen extends React.Component {
                 <WhiteCard
                   key={text}
                   active={text !== this.state.selectedCard}
-                  onRelease={(e) => this.checkCard(e, text)}
+                  onDragMove={this.onCardDrag}
+                  onDragRelease={(e) => this.checkCard(e, text)}
                   onResetClick={this.unselectCard}
                   >
                   {text}
