@@ -1,20 +1,20 @@
 import React from 'react';
+import { range } from 'lodash';
 
 import UserName from '../components/UserName';
 import BlackCard from '../components/BlackCard';
 import WhiteCard from '../components/WhiteCard';
 import Carousel from '../components/Carousel';
 
-const blackCardText = "Donald Trump’s first act as president was to outlaw $ANSWER";
-const whiteCardTexts = [
-  "Being on fire.",
-  "Racism.",
-  "Old people smell.",
-  "A micropenis.",
-  "Women in yogurt commercials.",
-  "Classist undertones.",
-  "Not giving a shit about the Third World."
-];
+import Deck from '../cards/Deck';
+import blackcards from '../cards/blackcards';
+import whitecards from '../cards/whitecards';
+
+const blackDeck = new Deck(blackcards);
+const whiteDeck = new Deck(whitecards);
+
+const blackCardText = blackDeck.draw();
+const whiteCardTexts = range(7).map(() => whiteDeck.draw());
 
 import './RoomScreen.css';
 

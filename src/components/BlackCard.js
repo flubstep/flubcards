@@ -1,13 +1,14 @@
 import React from 'react';
+import { trimEnd } from 'lodash';
 
 import './BlackCard.css';
 
-const BLANK = '________.'
+const BLANK = '________'
 
 class BlackCard extends React.Component {
 
   render() {
-    let answer = this.props.answer ? this.props.answer : BLANK;
+    let answer = this.props.answer ? trimEnd(this.props.answer, '.') : BLANK;
     let answerClass = this.props.answer ? 'answer-text' : null;
     let split = this.props.text.split('$ANSWER');
     let beforeText = split[0];
