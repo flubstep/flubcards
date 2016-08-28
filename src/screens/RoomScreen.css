@@ -3,7 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.room-carousel {
+  position: absolute;
+  width: 100vw;
+  bottom: 10px;
 }

@@ -47,27 +47,33 @@ class RoomScreen extends React.Component {
     return (
       <section className="screen">
         <section className="room-screen">
-          <UserName>Albert</UserName>
-          <BlackCard
-            onClick={this.unselectCard}
-            checked={this.state.selectedCard}
-            text={blackCardText}
-            answer={this.state.selectedCard}
-          />
-          <Carousel>
-            {
-              whiteCardTexts.map((text) => (
-                <WhiteCard
-                  key={text}
-                  active={text !== this.state.selectedCard}
-                  onRelease={(e) => this.checkCard(e, text)}
-                  onResetClick={this.unselectCard}
-                  >
-                  {text}
-                </WhiteCard>
-              ))
-            }
-          </Carousel>
+          <section className="margin-10">
+            <UserName>Albert</UserName>
+          </section>
+          <section className="margin-10">
+            <BlackCard
+              onClick={this.unselectCard}
+              checked={this.state.selectedCard}
+              text={blackCardText}
+              answer={this.state.selectedCard}
+            />
+          </section>
+          <section className="room-carousel">
+            <Carousel>
+              {
+                whiteCardTexts.map((text) => (
+                  <WhiteCard
+                    key={text}
+                    active={text !== this.state.selectedCard}
+                    onRelease={(e) => this.checkCard(e, text)}
+                    onResetClick={this.unselectCard}
+                    >
+                    {text}
+                  </WhiteCard>
+                ))
+              }
+            </Carousel>
+          </section>
         </section>
       </section>
     );
