@@ -25,6 +25,11 @@ class RoomScreen extends React.Component {
     this.state = {
       selectedCard: null
     }
+    this.unselectCard = () => this._unselectCard();
+  }
+
+  _unselectCard() {
+    this.setState({ selectedCard: null });
   }
 
   checkCard(e, text) {
@@ -43,7 +48,12 @@ class RoomScreen extends React.Component {
       <section className="screen">
         <section className="room-screen">
           <UserName>Albert</UserName>
-          <BlackCard>{blackCardText}</BlackCard>
+          <BlackCard
+            onClick={this.unselectCard}
+            checked={this.state.selectedCard}
+            >
+            {blackCardText}
+          </BlackCard>
           <Carousel>
             {
               whiteCardTexts.map((text) => (

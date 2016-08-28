@@ -7,6 +7,7 @@ class CircleButton extends React.Component {
   render() {
     return (
       <section
+        onClick={this.props.onClick}
         style={{
           opacity: this.props.opacity,
           backgroundColor: this.props.color

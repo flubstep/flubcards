@@ -1,19 +1,34 @@
 import React from 'react';
 
-import './BlackCard.css';
 import ShrinkGrowTransitionGroup from './ShrinkGrowTransitionGroup';
+import CircleButton from './CircleButton';
+
+import svgCheck from '../static/ic_done_black_24px.svg';
+import './BlackCard.css';
 
 class BlackCard extends React.Component {
 
   render() {
     return (
-      <ShrinkGrowTransitionGroup>
-        <section className={"black-card"}>
-          {this.props.children}
+      <section className={"black-card"}>
+        {this.props.children}
+        <section className={"flex-centered"}>
+          <ShrinkGrowTransitionGroup>
+            {
+              this.props.checked ? (
+                <CircleButton onClick={this.props.onClick} icon={svgCheck} />
+              ) : null
+            }
+          </ShrinkGrowTransitionGroup>
         </section>
-      </ShrinkGrowTransitionGroup>
+      </section>
     );
   }
+}
+
+BlackCard.defaultProps = {
+  checked: false,
+  onClick: () => {}
 }
 
 export default BlackCard;
