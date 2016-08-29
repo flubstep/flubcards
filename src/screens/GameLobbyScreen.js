@@ -4,7 +4,7 @@ class GameLobbyScreen extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="flex-centered">
         Game Lobby TBA
       </section>
     );
