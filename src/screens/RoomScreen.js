@@ -40,13 +40,13 @@ class RoomScreen extends React.Component {
         <LoadingScreen
           />
       );
-    } else if (gs.game === 'unstarted') {
+    } else if (false && gs.game === 'unstarted') {
       return (
         <GameLobbyScreen
           players={gs.players}
           />
       );
-    } else if (gs.game === 'choosing') {
+    } else if (true || gs.game === 'choosing') {
       return (
         <ChooseCardScreen
           room={this.room}

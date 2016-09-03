@@ -6,13 +6,14 @@ import personSvg from '../static/ic_person_black_24px.svg';
 class RoomPreview extends React.Component {
 
   render() {
+    let players = this.props.room.players || []
     return (
       <section>
         <section>
-          <section>Room Name TBA</section>
+          <section>Room: {this.props.room.id}</section>
           {
-            this.props.room.players.map((player) => (
-              <section>{player}</section>
+            players.map((player) => (
+              <section key={player.id}>{player}</section>
             ))
           }
         </section>

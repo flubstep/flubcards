@@ -3,14 +3,17 @@ import { browserHistory } from 'react-router'
 import { random, range } from 'lodash'
 
 import GameState from '../game/GameState'
+import UserInfo from '../game/UserInfo'
 import LoadingIndicator from '../components/LoadingIndicator'
 import RoomPreview from '../components/RoomPreview'
+import AskNameScreen from './AskNameScreen'
 
 class RoomChooseScreen extends React.Component {
 
   constructor(props, context) {
     super(props, context)
     this.state = {
+      user: null,
       rooms: [],
       roomsLoaded: false
     }
@@ -18,8 +21,11 @@ class RoomChooseScreen extends React.Component {
   }
 
   componentDidMount() {
-    GameState.subscribeRoomList(() => {
+    GameState.subscribeRoomList((rooms) => {
       this.setState({ rooms: rooms, roomsLoaded: true })
+    })
+    UserInfo.subscribe((info) => {
+      this.setState({ user: info })
     })
   }
 
@@ -36,23 +42,36 @@ class RoomChooseScreen extends React.Component {
   }
 
   render() {
-    return (
-      <section>
-        {
-          this.state.roomsLoaded ? (
-            <section>
-              <h1>Join a room</h1>
-              {
-                this.state.rooms.map((room) => (<RoomPreview room={room} />))
-              }
-            </section>
-          ) : (<LoadingIndicator />)
-        }
-        <button onClick={this.onClick}>
-          Create a new room
-        </button>
-      </section>
-    )
+    if (!this.state.user) {
+      return (
+        <AskNameScreen />
+      )
+    } else {
+      return (
+        <section className="screen flex-centered">
+          {
+            this.state.roomsLoaded ? (
+              <section>
+                <h1>Join a room</h1>
+                {
+                  this.state.rooms.map((room) => (
+                    <RoomPreview key={room.id} room={room} />
+                  ))
+                }
+                {
+                  this.state.rooms.length === 0 ? (
+                    <section>No rooms available :(</section>
+                  ) : null
+                }
+              </section>
+            ) : (<LoadingIndicator />)
+          }
+          <button onClick={this.onClick}>
+            Create a new room
+          </button>
+        </section>
+      )
+    }
   }
 }
 

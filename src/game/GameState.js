@@ -35,9 +35,10 @@ class GameState {
 }
 
 GameState.subscribeRoomList = (callback) => {
-  firebase.database().on('value', (store) => {
+  firebase.database().ref('/').on('value', (store) => {
     let value = store.val()
-    let rooms = values(value)
+    let rooms = values(value) || []
+    rooms = rooms.filter((r) => r.players && r.players.length > 0)
     callback(rooms)
   })
 }
