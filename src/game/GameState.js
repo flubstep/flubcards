@@ -1,44 +1,45 @@
 /* globals firebase */
 
-import actions from './actions';
+import { values } from 'lodash'
+import actions from './actions'
 
 class GameState {
 
   constructor(roomId) {
-    this.ref = firebase.database().ref(roomId);
+    this.ref = firebase.database().ref(roomId)
     this.ref.transaction((state) => {
-      console.log(state);
+      console.log(state)
       if (!state) {
-        return actions.INIT_GAME();
+        return actions.INIT_GAME()
       } else {
-        return state;
+        return state
       }
-    });
+    })
   }
 
   subscribe(callback) {
     this.ref.on('value', (store) => {
-      callback(store.val());
+      callback(store.val())
     });
   }
 
-  apply(actionType, action) {
-    let reducer = actions[actionType];
+  emit(action) {
+    console.log("Emitting " + action.type, action)
+    let reducer = actions[action.type]
     if (reducer) {
       this.ref.transaction(reducer)
     } else {
-      console.error("Invalid action type: " + actionType);
+      console.error("Invalid action type: " + action.type)
     }
   }
 }
 
-GameState.instances = {};
-
-GameState.create = (roomId) => {
-  if (!GameState.instances[roomId]) {
-    GameState.instances[roomId] = new GameState(roomId);
-  }
-  return GameState.instances[roomId];
+GameState.subscribeRoomList = (callback) => {
+  firebase.database().on('value', (store) => {
+    let value = store.val()
+    let rooms = values(value)
+    callback(rooms)
+  })
 }
 
 export default GameState;

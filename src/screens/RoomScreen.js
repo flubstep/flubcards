@@ -25,7 +25,7 @@ class RoomScreen extends React.Component {
     this.state = {
 
     }
-    this.room = GameState.create(this.props.params.room);
+    this.room = new GameState(this.props.params.room);
     this.updateGameState = (gameState) => this.setState({ gameState });
   }
 
