@@ -18,15 +18,22 @@ class RoomChooseScreen extends React.Component {
       roomsLoaded: false
     }
     this.onClick = (e) => this._onClick(e)
+    this.setUser = (info) => {
+      this.setState({ user: info })
+    }
+    this.gameState = new GameState()
   }
 
   componentDidMount() {
-    GameState.subscribeRoomList((rooms) => {
+    this.gameState.subscribeRoomList((rooms) => {
       this.setState({ rooms: rooms, roomsLoaded: true })
     })
-    UserInfo.subscribe((info) => {
-      this.setState({ user: info })
-    })
+    UserInfo.subscribe(this.setUser)
+  }
+
+  componentWillUnmount() {
+    // todo: need to unsub from gamestate here
+    UserInfo.unsubscribe(this.setUser)
   }
 
   randomId(length=8) {

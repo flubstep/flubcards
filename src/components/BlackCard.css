@@ -27,7 +27,7 @@
 }
 
 .black-card.hover {
-  box-shadow: 0px 0px 8px 8px #BDD07F;
+  box-shadow: 0px 0px 8px 4px red; /*#BDD07F; */
 }
 
 .answer-text {

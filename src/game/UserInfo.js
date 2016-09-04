@@ -7,7 +7,12 @@ class UserInfo {
   }
 
   get() {
-    return localStorage.getItem('flubcards:userinfo') || null
+    let s = localStorage.getItem('flubcards:userinfo')
+    if (!s) {
+      return null
+    } else {
+      return JSON.parse(s)
+    }
   }
 
   remove() {
@@ -17,7 +22,7 @@ class UserInfo {
 
   set(info) {
     let id = uuid.v4()
-    localStorage.setItem('flubcards:userinfo', Object.assign({ id }, info))
+    localStorage.setItem('flubcards:userinfo', JSON.stringify(Object.assign({ id }, info)))
     this.events.emit('value', info)
   }
 
@@ -25,7 +30,11 @@ class UserInfo {
     callback(this.get())
     this.events.on('value', callback)
   }
+
+  unsubscribe(callback) {
+    this.events.removeListener('value', callback)
+  }
 }
 
-let instance = new UserInfo
+let instance = new UserInfo()
 export default instance

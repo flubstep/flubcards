@@ -23,24 +23,24 @@ class GameState {
     });
   }
 
+  subscribeRoomList(callback) {
+    firebase.database().ref('/').on('value', (store) => {
+      let value = store.val()
+      let rooms = values(value) || []
+      rooms = rooms.filter((r) => r.players && r.players.length > 0)
+      callback(rooms)
+    })
+  }
+
   emit(action) {
     console.log("Emitting " + action.type, action)
     let reducer = actions[action.type]
     if (reducer) {
-      this.ref.transaction(reducer)
+      this.ref.transaction((state) => reducer(state, action))
     } else {
       console.error("Invalid action type: " + action.type)
     }
   }
-}
-
-GameState.subscribeRoomList = (callback) => {
-  firebase.database().ref('/').on('value', (store) => {
-    let value = store.val()
-    let rooms = values(value) || []
-    rooms = rooms.filter((r) => r.players && r.players.length > 0)
-    callback(rooms)
-  })
 }
 
 export default GameState;
