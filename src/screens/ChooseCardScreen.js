@@ -1,61 +1,71 @@
-import React from 'react';
+import React from 'react'
 
-import UserName from '../components/UserName';
-import BlackCard from '../components/BlackCard';
-import WhiteCard from '../components/WhiteCard';
-import Carousel from '../components/Carousel';
+import UserName from '../components/UserName'
+import BlackCard from '../components/BlackCard'
+import WhiteCard from '../components/WhiteCard'
+import Carousel from '../components/Carousel'
 
-import './ChooseCardScreen.css';
+import './ChooseCardScreen.css'
 
 class ChooseCardScreen extends React.Component {
 
   constructor(props, context) {
-    super(props, context);
+    super(props, context)
     this.state = {
-      selectedCard: null,
       leftOffset: 0
     }
-    this.unselectCard = () => this._unselectCard();
-    this.setCarousel = (c) => this._setCarousel(c);
-    this.onCardDrag = (e) => this._onCardDrag(e);
+    this.selectCard = (e) => this._selectCard(e)
+    this.unselectCard = () => this._unselectCard()
+    this.setCarousel = (c) => this._setCarousel(c)
+    this.onCardDrag = (e) => this._onCardDrag(e)
   }
 
   _unselectCard() {
-    this.setState({ selectedCard: null });
+    this.props.room.emit({
+      type: 'PLAYER_CHOOSE_CARD',
+      player: this.props.user,
+      card: null
+    })
+  }
+
+  _selectCard(card) {
+    this.props.room.emit({
+      type: 'PLAYER_CHOOSE_CARD',
+      player: this.props.user,
+      card: card
+    })
+    this.setState({ hovering: false })
   }
 
   _setCarousel(c) {
     // HACK: Need to compensate for mobile Safari in order
     // to get the carousel to still render centered when
     // in absolute positioning.
-    let windowWidth = window.innerWidth;
-    let carouselWidth = c.getBoundingClientRect().width;
+    let windowWidth = window.innerWidth
+    let carouselWidth = c.getBoundingClientRect().width
     this.setState({
       leftOffset: (carouselWidth - windowWidth) / 2
-    });
+    })
   }
 
   _onCardDrag(e) {
-    let hovering = (e.dy < -150);
+    let hovering = (e.dy < -150)
     if (hovering !== this.state.hovering) {
-      this.setState({ hovering });
+      this.setState({ hovering })
     }
   }
 
   checkCard(e, text) {
     if (e.dy < -150) {
-      this.setState({
-        selectedCard: text,
-        hovering: false
-      });
-      return false;
+      this.selectCard(text)
+      return false
     } else {
-      return true;
+      return true
     }
   }
 
   render() {
-    let leftOffset = { left: -this.state.leftOffset };
+    let leftOffset = { left: -this.state.leftOffset }
     return (
       <section className="choose-card-container">
         <section className="margin-10">
@@ -65,9 +75,9 @@ class ChooseCardScreen extends React.Component {
           <BlackCard
             hover={this.state.hovering}
             onClick={this.unselectCard}
-            checked={this.state.selectedCard}
+            checked={this.props.player.chosen}
             text={this.props.blackCard}
-            answer={this.state.selectedCard}
+            answer={this.props.player.chosen}
           />
         </section>
         <section
@@ -77,10 +87,10 @@ class ChooseCardScreen extends React.Component {
           >
           <Carousel>
             {
-              this.props.hand.map((text) => (
+              this.props.player.hand.map((text) => (
                 <WhiteCard
                   key={text}
-                  active={text !== this.state.selectedCard}
+                  active={text !== this.props.player.chosen}
                   onDragMove={this.onCardDrag}
                   onDragRelease={(e) => this.checkCard(e, text)}
                   onResetClick={this.unselectCard}
@@ -92,8 +102,8 @@ class ChooseCardScreen extends React.Component {
           </Carousel>
         </section>
       </section>
-    );
+    )
   }
 }
 
-export default ChooseCardScreen;
+export default ChooseCardScreen

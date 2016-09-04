@@ -27,21 +27,20 @@ class RoomScreen extends React.Component {
 
     }
     this.room = new GameState(this.props.params.room)
+    this.user = UserInfo.get()
     this.updateGameState = (gameState) => this.setState({ gameState })
     this.onGameStart = (e) => this._onGameStart(e)
   }
 
   componentDidMount() {
     this.room.subscribe(this.updateGameState)
-    let user = UserInfo.get()
-    console.log('userinfo:', user)
-    if (!user) {
+    if (!this.user) {
       // todo: ???
     } else {
       this.room.emit({
         type: 'ADD_PLAYER',
-        id: user.id,
-        name: user.name
+        id: this.user.id,
+        name: this.user.name
       })
     }
   }
@@ -71,11 +70,13 @@ class RoomScreen extends React.Component {
           />
       )
     } else if (gs.game === 'choosing') {
+      let player = gs.players[this.user.id]
       return (
         <ChooseCardScreen
+          user={this.user}
           room={this.room}
           blackCard={gs.blackCard}
-          hand={whiteCardTexts}
+          player={player}
           />
       )
     } else {
